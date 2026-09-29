@@ -96,4 +96,7 @@ export interface DemoAlert {
   jurisdictionId: string;
   expiresAt?: string;
   responseDeadline?: string;
+  txHash?: string;
+  blockchainState?: "LOCAL_DRAFT" | "PENDING_SIGNATURE" | "PENDING_CONFIRMATION" | "CONFIRMED_ON_MST" | "FAILED" | "MOCK_DEMO";
+  txError?: string;
 }

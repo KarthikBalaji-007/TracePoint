@@ -190,6 +190,30 @@ describe("investigator dashboard", () => {
     expect(first.nonce).not.toBe(first.commitment);
   });
 
+  it("builds valid publish commitments from an alert draft", async () => {
+    const { createPublishCommitments } = await import("./services/alertWorkflow");
+    const draft = {
+      alertId: "ALT-comm-test",
+      predictionId: "PRED-1",
+      zoneId: "ZONE-1",
+      horizon: "+2h" as const,
+      riskBand: "HIGH" as const,
+      state: "DRAFT" as const,
+      preparedAt: new Date().toISOString(),
+      fusionVersion: "fusion-v1",
+      snapshotId: "SNAP-1",
+      modelVersion: "model-v1",
+      jurisdictionId: "SYN-JUR-01",
+    };
+    const { commitments, nonce } = createPublishCommitments(draft, 1700000000);
+    expect(commitments.jurisdictionId).toBe("SYN-JUR-01");
+    expect(commitments.snapshotCommitment).toMatch(/^0x[\da-f]{64}$/i);
+    expect(commitments.offchainRef).toMatch(/^0x[\da-f]{64}$/i);
+    expect(commitments.expiry).toBe(1700000000 + 86400);
+    expect(commitments.responseDeadline).toBe(1700000000 + 7200);
+    expect(nonce).toMatch(/^0x[\da-f]{64}$/i);
+  });
+
   it("connects through an injected EVM provider without asking for key material", async () => {
     const account = "0x1234567890123456789012345678901234567890";
     const request = vi.fn(async ({ method }: { method: string }) => {
@@ -202,6 +226,27 @@ describe("investigator dashboard", () => {
     await expect(signer.connect(31337n)).resolves.toBe(account);
     expect(request).toHaveBeenCalledWith(expect.objectContaining({ method: "eth_requestAccounts" }));
     expect(request.mock.calls.some(([arg]) => /private|seed|password/i.test(arg.method))).toBe(false);
+  });
+
+  it("handles chain mismatch by requesting network switch", async () => {
+    const account = "0x1234567890123456789012345678901234567890";
+    let chainIdHex = "0x1"; // start on mainnet
+    const request = vi.fn(async ({ method }: { method: string }) => {
+      if (method === "eth_chainId") return chainIdHex;
+      if (method === "wallet_switchEthereumChain") {
+        chainIdHex = "0x5752035"; // switched to 91562037
+        return null;
+      }
+      if (method === "eth_requestAccounts" || method === "eth_accounts") return [account];
+      throw new Error(`Unexpected wallet request: ${method}`);
+    });
+    const { BridgeKeySigner } = await import("./services/blockchain/adapters");
+    const signer = new BridgeKeySigner({ request });
+    await expect(signer.connect(91562037n)).resolves.toBe(account);
+    expect(request).toHaveBeenCalledWith(expect.objectContaining({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x5752035" }],
+    }));
   });
 
   it("shows each mock lifecycle transition from the alert panel", async () => {

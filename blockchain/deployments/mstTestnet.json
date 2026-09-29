@@ -1,0 +1,32 @@
+{
+  "network": "mstTestnet",
+  "chainId": 91562037,
+  "contractAddress": "0xB5Cb7140C84108Ca6A79f843Db7ef7E1455c42a4",
+  "deploymentTxHash": "0x1d0b270af14e8e90299e940b959d98857bec646cd4e3415394ae666fd554e9b1",
+  "blockNumber": 5804690,
+  "deployerAddress": "0x2614b2A47eCAaF035E71245f0c3c0Ed5a2946efD",
+  "bridgeKeyWallet": "0x16d31843fbb39B683e280B8FD6cB7FFd7D7785d6",
+  "roleGrants": [
+    {
+      "role": "ALERT_PUBLISHER_ROLE",
+      "txHash": "0x7d1bcfc006d0188227599bc03d3335a3c58e804b7d1dc0eccb827a034b6b8f03",
+      "blockNumber": 5804692
+    },
+    {
+      "role": "ALERT_RESPONDER_ROLE",
+      "txHash": "0x8cc69535492e9fead7d96e9e20492ee0acff8788c9e363e810f18a3062c2f82e",
+      "blockNumber": 5804693
+    },
+    {
+      "role": "ALERT_REVIEWER_ROLE",
+      "txHash": "0xcf80085eb19d0082a50492082e72b67bce9e58e7149380c7073f284766dae611",
+      "blockNumber": 5804694
+    },
+    {
+      "role": "ALERT_RESOLVER_ROLE",
+      "txHash": "0xb2f96d950fd5af205c0db0f00b940d1f6e3277e10776ef61389061d02fb9e5a3",
+      "blockNumber": 5804696
+    }
+  ],
+  "deployedAt": "2026-09-29T08:09:18.967Z"
+}

@@ -10,7 +10,8 @@ import { RankingTable } from "./components/RankingTable";
 import { RiskCard } from "./components/RiskCard";
 import { ZoneEvidencePanel } from "./components/ZoneEvidencePanel";
 import { ZoneMap } from "./components/ZoneMap";
-import { prepareAlertDraft } from "./services/alertWorkflow";
+import { createPublishCommitments, prepareAlertDraft } from "./services/alertWorkflow";
+import { connectMstAlertAdapter, getInjectedProvider, resolveMstChainConfig, type MstAlertAdapter, type MstChainConfig } from "./services/blockchain/adapters";
 import { MockAlertWorkflowAdapter } from "./services/blockchain/mockAdapter";
 import { HORIZONS, type AuditItem, type DemoAlert, type Horizon, type LiveFeature, type MapLayer, type Prediction, type Zone } from "./types";
 
@@ -58,6 +59,18 @@ export default function App() {
   const [activity, setActivity] = useState<AuditItem[]>([]);
   const [alerts, setAlerts] = useState<DemoAlert[]>([]);
   const mockAlertWorkflow = useMemo(() => new MockAlertWorkflowAdapter(), []);
+  const chainConfig = useMemo<MstChainConfig>(() => {
+    try {
+      return resolveMstChainConfig(import.meta.env);
+    } catch {
+      return { mode: "mock" };
+    }
+  }, []);
+  const [chainMode, setChainMode] = useState<"mock" | "testnet">(chainConfig.mode);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [isConnectingWallet, setIsConnectingWallet] = useState(false);
+  const [alertAdapter, setAlertAdapter] = useState<MstAlertAdapter | null>(null);
+  const [txPendingAlertId, setTxPendingAlertId] = useState<string | null>(null);
 
   const addActivity = useCallback((item: AuditItem) => setActivity((current) => [item, ...current].slice(0, 20)), []);
 
@@ -198,6 +211,100 @@ export default function App() {
     }
   };
 
+  const connectWallet = async () => {
+    setIsConnectingWallet(true);
+    setErrorMessage(null);
+    try {
+      const provider = getInjectedProvider();
+      if (!provider) {
+        throw new Error("No BridgeKey or EIP-1193 wallet detected. Please install BridgeKey extension from bridgekey.io.");
+      }
+      const testnetConfig: MstChainConfig = {
+        mode: "testnet",
+        rpcUrl: chainConfig.rpcUrl || import.meta.env.VITE_MST_RPC_URL || "https://testnetrpc.mstblockchain.com",
+        chainId: chainConfig.chainId || (import.meta.env.VITE_MST_CHAIN_ID ? BigInt(import.meta.env.VITE_MST_CHAIN_ID) : 91562037n),
+        contractAddress: chainConfig.contractAddress || import.meta.env.VITE_MST_ALERTS_CONTRACT_ADDRESS || "0xB5Cb7140C84108Ca6A79f843Db7ef7E1455c42a4",
+        explorerUrl: chainConfig.explorerUrl || import.meta.env.VITE_MST_EXPLORER_URL || "https://testnet.mstscan.com",
+      };
+      const { adapter, account } = await connectMstAlertAdapter(testnetConfig, provider);
+      setWalletAddress(account);
+      setAlertAdapter(adapter);
+      setChainMode("testnet");
+      addActivity(audit("ALERT_STATE_CHANGED", `BridgeKey connected: ${account.slice(0, 6)}…${account.slice(-4)}`));
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Failed to connect BridgeKey wallet.");
+    } finally {
+      setIsConnectingWallet(false);
+    }
+  };
+
+  const handleTestnetPublish = async (alert: DemoAlert) => {
+    if (!alertAdapter) {
+      setErrorMessage("Please connect BridgeKey wallet first.");
+      return;
+    }
+    setTxPendingAlertId(alert.alertId);
+    setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? { ...a, blockchainState: "PENDING_SIGNATURE" } : a));
+    try {
+      const { commitments } = createPublishCommitments(alert);
+      setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? { ...a, blockchainState: "PENDING_CONFIRMATION" } : a));
+      const txHash = await alertAdapter.publish(alert, commitments);
+      setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? {
+        ...a,
+        state: "PUBLISHED",
+        blockchainState: "CONFIRMED_ON_MST",
+        txHash,
+        txError: undefined,
+      } : a));
+      addActivity(audit("ALERT_STATE_CHANGED", `Alert ${alert.alertId.slice(0, 10)}… PUBLISHED on MST: ${txHash.slice(0, 10)}…`, alert.zoneId));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "MST transaction failed.";
+      setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? { ...a, blockchainState: "FAILED", txError: msg } : a));
+      setErrorMessage(msg);
+    } finally {
+      setTxPendingAlertId(null);
+    }
+  };
+
+  const handleTestnetTransition = async (alert: DemoAlert, targetState: string) => {
+    if (!alertAdapter) {
+      setErrorMessage("Please connect BridgeKey wallet first.");
+      return;
+    }
+    setTxPendingAlertId(alert.alertId);
+    try {
+      let txHash = "";
+      if (targetState === "ACKNOWLEDGED") {
+        txHash = await alertAdapter.acknowledge(alert.alertId);
+      } else if (targetState === "ACTION_COMMITTED") {
+        const deadline = Math.floor(Date.now() / 1000) + 7200;
+        txHash = await alertAdapter.commitResponse(alert.alertId, deadline, 1);
+      } else if (targetState === "RESOLVED") {
+        txHash = await alertAdapter.resolve(alert.alertId, 2);
+      } else if (targetState === "DISPUTED") {
+        txHash = await alertAdapter.dispute(alert.alertId, 3);
+      } else if (targetState === "EXPIRED") {
+        txHash = await alertAdapter.expire(alert.alertId);
+      } else {
+        throw new Error(`Unsupported on-chain state transition: ${targetState}`);
+      }
+      setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? {
+        ...a,
+        state: targetState as DemoAlert["state"],
+        blockchainState: "CONFIRMED_ON_MST",
+        txHash,
+        txError: undefined,
+      } : a));
+      addActivity(audit("ALERT_STATE_CHANGED", `Alert ${alert.alertId.slice(0, 10)}… → ${targetState} on MST: ${txHash.slice(0, 10)}…`, alert.zoneId));
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "MST transaction failed.";
+      setAlerts((current) => current.map((a) => a.alertId === alert.alertId ? { ...a, txError: msg } : a));
+      setErrorMessage(msg);
+    } finally {
+      setTxPendingAlertId(null);
+    }
+  };
+
   return <DashboardShell>
     <header className="topbar">
       <div className="page-title"><span className="eyebrow">INTELLIGENCE / ZONE FORECASTS</span><h1>Investigator desk</h1></div>
@@ -257,6 +364,15 @@ export default function App() {
             }}
             onMockDispute={(alert) => applyMockTransition(alert, () => mockAlertWorkflow.dispute(alert))}
             onMockExpire={(alert) => applyMockTransition(alert, () => mockAlertWorkflow.expire(alert))}
+            chainMode={chainMode}
+            onToggleChainMode={setChainMode}
+            walletAddress={walletAddress}
+            onConnectWallet={connectWallet}
+            isConnectingWallet={isConnectingWallet}
+            contractAddress={chainConfig.contractAddress || "0xB5Cb7140C84108Ca6A79f843Db7ef7E1455c42a4"}
+            onTestnetPublish={handleTestnetPublish}
+            onTestnetTransition={handleTestnetTransition}
+            txPendingAlertId={txPendingAlertId}
           />
         </div>
       </div>

@@ -1,0 +1,16 @@
+{
+  "contractAddress": "0xB5Cb7140C84108Ca6A79f843Db7ef7E1455c42a4",
+  "testAlertId": "ALT-1790669501466",
+  "opaqueAlertId": "0x8a4bcaf129f31dde64ce7b82ed3bedf94cf012fc80c4cc3c14869c4b549d870f",
+  "publishTx": "0xd8986a71faae93f5153fcfb7aefb34ed427105a960012b1b947484d091d8a2d5",
+  "publishBlock": 5804749,
+  "acknowledgeTx": "0x4d5343d1d8315bd167f6b7feccceb36dcae1e923fd897432b155e44c2c8575c1",
+  "acknowledgeBlock": 5804752,
+  "actionCommitmentTx": "0xdfe4bac7dba1185f5a09db7cb6b63f1d90c0fc2b365562701f8df19fccd5b2c3",
+  "actionCommitmentBlock": 5804754,
+  "resolveTx": "0x780e3bb40fbec9204fb7f6f9082dff1d5e1b221390bcac51ef011b5d309fd9cd",
+  "resolveBlock": 5804757,
+  "finalState": "RESOLVED",
+  "explorerUrl": "https://testnet.mstscan.com",
+  "executedAt": "2026-09-29T08:12:12.289Z"
+}

@@ -1,0 +1,32 @@
+{
+  "network": "hardhat",
+  "chainId": 31337,
+  "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "deploymentTxHash": "0x7d3f7fda5aca27555586c4f7af2d67dfa6c9a361912644326cb7e19d780b7bdd",
+  "blockNumber": 1,
+  "deployerAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "bridgeKeyWallet": "0x16d31843fbb39B683e280B8FD6cB7FFd7D7785d6",
+  "roleGrants": [
+    {
+      "role": "ALERT_PUBLISHER_ROLE",
+      "txHash": "0x29221417450748b7ffe0e0c925a442306e4939c0384df1dd595f0f181ee276cb",
+      "blockNumber": 2
+    },
+    {
+      "role": "ALERT_RESPONDER_ROLE",
+      "txHash": "0xbdb841d06b80d94ee935de035fd4a88ae9e4170bb470cad259eb344fb323df46",
+      "blockNumber": 3
+    },
+    {
+      "role": "ALERT_REVIEWER_ROLE",
+      "txHash": "0xd6447b35ea77a6fe75e9fb4c65df5ef6b2293a40b77d215ba78518285362c4f5",
+      "blockNumber": 4
+    },
+    {
+      "role": "ALERT_RESOLVER_ROLE",
+      "txHash": "0xcdef415d1f0aea382359c417a8314d73fd65a041f62d195ea5fcb2f4de53c779",
+      "blockNumber": 5
+    }
+  ],
+  "deployedAt": "2026-09-29T08:08:16.424Z"
+}
