@@ -1,0 +1,45 @@
+{
+  "categorical": [
+    "zone_id",
+    "horizon"
+  ],
+  "numeric": [
+    "recent_event_count_24h",
+    "distinct_event_count_24h",
+    "recent_cashout_count_24h",
+    "cash_point_density",
+    "hour_of_day",
+    "day_of_week",
+    "is_weekend",
+    "sin_hour",
+    "cos_hour",
+    "sin_day",
+    "cos_day",
+    "amount_band_count_24h_BAND_1",
+    "amount_band_count_24h_BAND_2",
+    "amount_band_count_24h_BAND_3",
+    "amount_band_count_24h_BAND_4",
+    "channel_count_24h_UPI",
+    "channel_count_24h_AEPS",
+    "channel_count_24h_CARD",
+    "channel_count_24h_NET_BANKING",
+    "category_count_24h_PHISHING",
+    "category_count_24h_QR_FRAUD",
+    "category_count_24h_IMPERSONATION",
+    "category_count_24h_INVESTMENT_SCAM"
+  ],
+  "target_excluded": [
+    "target_cashout_in_window",
+    "target_event_refs",
+    "label_window_start",
+    "label_window_end"
+  ],
+  "timestamp_metadata_excluded": [
+    "as_of",
+    "feature_event_refs",
+    "feature_event_times",
+    "feature_received_times",
+    "latest_feature_event_time",
+    "latest_feature_available_at"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "tracepoint-alert-contracts",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy:local": "hardhat run scripts/deploy.cjs --network hardhat",
+    "deploy:mst": "hardhat run scripts/deploy.cjs --network mstTestnet"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "chai": "^4.5.0",
+    "ethers": "^6.13.4",
+    "hardhat": "^2.22.17",
+    "solc": "0.8.24"
+  }
+}

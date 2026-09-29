@@ -1,0 +1,172 @@
+[
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x24_+24h",
+    "importance": 0.44730357
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x3",
+    "importance": 0.28581485
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x15",
+    "importance": 0.04671173
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x14",
+    "importance": 0.0407288
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x24_+2h",
+    "importance": 0.03635022
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x10",
+    "importance": 0.03016671
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x21",
+    "importance": 0.02124708
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x22",
+    "importance": 0.01646259
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x16",
+    "importance": 0.01228596
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x13",
+    "importance": 0.01188545
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x17",
+    "importance": 0.01063063
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x20",
+    "importance": 0.00836349
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x11",
+    "importance": 0.006374
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-003",
+    "importance": 0.00629975
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x7",
+    "importance": 0.00542062
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x24_+6h",
+    "importance": 0.00464754
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x5",
+    "importance": 0.00431125
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x9",
+    "importance": 0.00158231
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x12",
+    "importance": 0.00156888
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x19",
+    "importance": 0.00123713
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-007",
+    "importance": 0.00060744
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-001",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-002",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-004",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-005",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-006",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "categorical__x23_SYN-ZONE-008",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x0",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x1",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x18",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x2",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x4",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x6",
+    "importance": 0.0
+  },
+  {
+    "basis": "tree impurity importance",
+    "feature": "numeric__x8",
+    "importance": 0.0
+  }
+]

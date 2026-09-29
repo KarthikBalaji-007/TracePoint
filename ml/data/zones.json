@@ -1,0 +1,106 @@
+[
+  {
+    "active": true,
+    "cash_point_density": 29,
+    "centroid": {
+      "lat": 29.16553,
+      "lon": 78.14136
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-01",
+    "label": "Synthetic Zone 001",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-001"
+  },
+  {
+    "active": true,
+    "cash_point_density": 36,
+    "centroid": {
+      "lat": 22.27453,
+      "lon": 72.66955
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-02",
+    "label": "Synthetic Zone 002",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-002"
+  },
+  {
+    "active": true,
+    "cash_point_density": 52,
+    "centroid": {
+      "lat": 13.94535,
+      "lon": 76.62384
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-03",
+    "label": "Synthetic Zone 003",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-003"
+  },
+  {
+    "active": true,
+    "cash_point_density": 60,
+    "centroid": {
+      "lat": 23.80305,
+      "lon": 85.00428
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-04",
+    "label": "Synthetic Zone 004",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-004"
+  },
+  {
+    "active": true,
+    "cash_point_density": 21,
+    "centroid": {
+      "lat": 28.66858,
+      "lon": 77.75907
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-01",
+    "label": "Synthetic Zone 005",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-005"
+  },
+  {
+    "active": true,
+    "cash_point_density": 44,
+    "centroid": {
+      "lat": 22.10492,
+      "lon": 73.03595
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-02",
+    "label": "Synthetic Zone 006",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-006"
+  },
+  {
+    "active": true,
+    "cash_point_density": 5,
+    "centroid": {
+      "lat": 13.80431,
+      "lon": 77.07141
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-03",
+    "label": "Synthetic Zone 007",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-007"
+  },
+  {
+    "active": true,
+    "cash_point_density": 13,
+    "centroid": {
+      "lat": 24.2166,
+      "lon": 84.6052
+    },
+    "created_at": "2026-01-01T00:00:00Z",
+    "jurisdiction_id": "SYN-JUR-04",
+    "label": "Synthetic Zone 008",
+    "source_class": "SYNTHETIC",
+    "zone_id": "SYN-ZONE-008"
+  }
+]

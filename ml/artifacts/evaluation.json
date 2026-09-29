@@ -1,0 +1,95 @@
+{
+  "metrics_label": "SYNTHETIC-ONLY",
+  "models": {
+    "test": {
+      "Gradient Boosting": {
+        "f1_at_0_5": 0.611872,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.739813,
+        "precision_at_0_5": 0.761364,
+        "precision_at_k": 1.0,
+        "recall_at_0_5": 0.51145,
+        "recall_at_k": 0.21374,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.859495,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Logistic Regression": {
+        "f1_at_0_5": 0.608187,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.627112,
+        "precision_at_0_5": 0.492891,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.793893,
+        "recall_at_k": 0.160305,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.835742,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Random Forest": {
+        "f1_at_0_5": 0.653061,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.719275,
+        "precision_at_0_5": 0.588957,
+        "precision_at_k": 0.964286,
+        "recall_at_0_5": 0.732824,
+        "recall_at_k": 0.206107,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.85362,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      }
+    },
+    "validation": {
+      "Gradient Boosting": {
+        "f1_at_0_5": 0.623762,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.693804,
+        "precision_at_0_5": 0.797468,
+        "precision_at_k": 0.857143,
+        "recall_at_0_5": 0.512195,
+        "recall_at_k": 0.195122,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.866593,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Logistic Regression": {
+        "f1_at_0_5": 0.574257,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.606468,
+        "precision_at_0_5": 0.483333,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.707317,
+        "recall_at_k": 0.170732,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.839388,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Random Forest": {
+        "f1_at_0_5": 0.646617,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.63397,
+        "precision_at_0_5": 0.601399,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.699187,
+        "recall_at_k": 0.170732,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.860974,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      }
+    }
+  },
+  "note": "Synthetic results are development signals, not operational accuracy.",
+  "selection_split": "validation"
+}

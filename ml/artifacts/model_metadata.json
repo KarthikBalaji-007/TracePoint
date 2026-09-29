@@ -1,0 +1,180 @@
+{
+  "calibration": {
+    "performed": false,
+    "reason": "No calibration method was fitted and validated."
+  },
+  "evaluation": {
+    "test": {
+      "Gradient Boosting": {
+        "f1_at_0_5": 0.611872,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.739813,
+        "precision_at_0_5": 0.761364,
+        "precision_at_k": 1.0,
+        "recall_at_0_5": 0.51145,
+        "recall_at_k": 0.21374,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.859495,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Logistic Regression": {
+        "f1_at_0_5": 0.608187,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.627112,
+        "precision_at_0_5": 0.492891,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.793893,
+        "recall_at_k": 0.160305,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.835742,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Random Forest": {
+        "f1_at_0_5": 0.653061,
+        "positive_targets": 131,
+        "pr_auc_average_precision": 0.719275,
+        "precision_at_0_5": 0.588957,
+        "precision_at_k": 0.964286,
+        "recall_at_0_5": 0.732824,
+        "recall_at_k": 0.206107,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.85362,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      }
+    },
+    "validation": {
+      "Gradient Boosting": {
+        "f1_at_0_5": 0.623762,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.693804,
+        "precision_at_0_5": 0.797468,
+        "precision_at_k": 0.857143,
+        "recall_at_0_5": 0.512195,
+        "recall_at_k": 0.195122,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.866593,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Logistic Regression": {
+        "f1_at_0_5": 0.574257,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.606468,
+        "precision_at_0_5": 0.483333,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.707317,
+        "recall_at_k": 0.170732,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.839388,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      },
+      "Random Forest": {
+        "f1_at_0_5": 0.646617,
+        "positive_targets": 123,
+        "pr_auc_average_precision": 0.63397,
+        "precision_at_0_5": 0.601399,
+        "precision_at_k": 0.75,
+        "recall_at_0_5": 0.699187,
+        "recall_at_k": 0.170732,
+        "review_capacity_fraction": 0.05,
+        "review_capacity_k": 28,
+        "roc_auc": 0.860974,
+        "rows": 552,
+        "score_threshold_note": "0.5 is a raw-score reporting threshold; scores are not calibrated probabilities"
+      }
+    }
+  },
+  "feature_contract_source": "ml.generate_synthetic.FEATURE_FIELDS; explicit flattened allowlist",
+  "feature_importance_basis": "tree impurity importance",
+  "feature_importance_file": "feature_importance.json",
+  "feature_list": [
+    "recent_event_count_24h",
+    "distinct_event_count_24h",
+    "recent_cashout_count_24h",
+    "cash_point_density",
+    "hour_of_day",
+    "day_of_week",
+    "is_weekend",
+    "sin_hour",
+    "cos_hour",
+    "sin_day",
+    "cos_day",
+    "amount_band_count_24h_BAND_1",
+    "amount_band_count_24h_BAND_2",
+    "amount_band_count_24h_BAND_3",
+    "amount_band_count_24h_BAND_4",
+    "channel_count_24h_UPI",
+    "channel_count_24h_AEPS",
+    "channel_count_24h_CARD",
+    "channel_count_24h_NET_BANKING",
+    "category_count_24h_PHISHING",
+    "category_count_24h_QR_FRAUD",
+    "category_count_24h_IMPERSONATION",
+    "category_count_24h_INVESTMENT_SCAM",
+    "zone_id",
+    "horizon"
+  ],
+  "metrics_label": "SYNTHETIC-ONLY",
+  "model_version": "tracepoint-historical-baseline-v1-seed42-2bb209a65e72",
+  "preprocessing_fit_partition": "train only",
+  "random_seed": 42,
+  "score_semantics": "UNCALIBRATED_RAW_MODEL_SCORE",
+  "selected_model": "Gradient Boosting",
+  "selection_rule": "Highest validation precision_at_k with k=ceil(5% of validation rows); ties break by average precision, ROC-AUC, then fixed order: Logistic Regression, Random Forest, Gradient Boosting. Final test metrics do not select the model.",
+  "split_information": {
+    "method": "chronological by unique as_of; 60% train, 20% validation, 20% final test",
+    "test": {
+      "distinct_cutoffs": 23,
+      "first_as_of": "2026-01-24T12:00:00Z",
+      "last_as_of": "2026-01-30T00:00:00Z",
+      "positive_targets": 131,
+      "rows": 552
+    },
+    "train": {
+      "distinct_cutoffs": 67,
+      "first_as_of": "2026-01-02T00:00:00Z",
+      "last_as_of": "2026-01-18T12:00:00Z",
+      "positive_targets": 383,
+      "rows": 1608
+    },
+    "validation": {
+      "distinct_cutoffs": 23,
+      "first_as_of": "2026-01-18T18:00:00Z",
+      "last_as_of": "2026-01-24T06:00:00Z",
+      "positive_targets": 123,
+      "rows": 552
+    }
+  },
+  "synthetic_only": true,
+  "target": {
+    "definition": "1 when a CASHOUT_OBSERVED event occurs for the zone in (as_of, as_of + horizon_hours]; otherwise 0.",
+    "field": "target_cashout_in_window",
+    "horizons": {
+      "+24h": 24,
+      "+2h": 2,
+      "+6h": 6
+    }
+  },
+  "training_data": {
+    "events": 578,
+    "examples": 2712,
+    "sha256_training_examples": "2bb209a65e72c5906c8f5cd2862e2c725fe8f18d5e0de2ccb32c6f75b4abbc51",
+    "target_distribution": {
+      "0": 2075,
+      "1": 637
+    },
+    "zones": 8
+  },
+  "training_data_provenance": [
+    "SYNTHETIC"
+  ]
+}
