@@ -17,3 +17,5 @@ blockchain/coverage/
 blockchain/.env
 blockchain/broadcast/
 references/
+Docs/
+docs/
