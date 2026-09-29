@@ -1,0 +1,10 @@
+# TracePoint Platform — Python Production & Runtime Dependencies
+fastapi>=0.115.0,<1.0.0
+uvicorn[standard]>=0.30.0,<1.0.0
+pydantic>=2.7.0,<3.0.0
+numpy>=1.26,<3
+scikit-learn>=1.4,<2
+joblib>=1.3,<2
+httpx>=0.27.0,<1.0.0
+pytest>=8,<9
+pytest-asyncio>=0.24.0,<1.0.0

@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from functools import lru_cache
 import json
+import os
 from pathlib import Path
 from typing import Annotated
 
@@ -24,6 +25,25 @@ from .schemas import (
     WorkerResponse,
 )
 
+DEFAULT_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+
+def get_allowed_origins() -> list[str]:
+    raw = os.environ.get("ALLOWED_ORIGINS", "").strip()
+    if not raw:
+        return list(DEFAULT_ALLOWED_ORIGINS)
+    configured = [origin.strip() for origin in raw.split(",") if origin.strip()]
+    merged = list(configured)
+    for dev in DEFAULT_ALLOWED_ORIGINS:
+        if dev not in merged:
+            merged.append(dev)
+    return merged
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
@@ -34,10 +54,10 @@ async def lifespan(_: FastAPI):
 app = FastAPI(title="TracePoint Backend", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=get_allowed_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "X-Source-Scope"],
+    allow_headers=["Content-Type", "X-Source-Scope", "Authorization", "Accept"],
 )
 
 
@@ -49,7 +69,11 @@ def _prediction_service():
 
 @lru_cache(maxsize=1)
 def _zone_catalogue():
-    path = Path(__file__).resolve().parents[2] / "ml" / "data" / "zones.json"
+    custom_path = os.environ.get("TRACEPOINT_ZONE_CATALOGUE")
+    if custom_path:
+        path = Path(custom_path)
+    else:
+        path = Path(__file__).resolve().parents[2] / "ml" / "data" / "zones.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 

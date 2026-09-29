@@ -128,3 +128,20 @@ def test_demo_new_event_changes_live_score_and_fused_ranking(client):
     assert new_top == "SYN-ZONE-005"
     assert updated_target["live_score_l"] > initial_target["live_score_l"]
     assert updated_target["fused_score_f"] > initial_target["fused_score_f"]
+
+
+def test_health_check_endpoint(client):
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+
+def test_allowed_origins_parsing(monkeypatch):
+    from backend.app.main import get_allowed_origins
+
+    monkeypatch.setenv("ALLOWED_ORIGINS", "https://tracepoint.vercel.app, https://demo.tracepoint.org ")
+    origins = get_allowed_origins()
+    assert "https://tracepoint.vercel.app" in origins
+    assert "https://demo.tracepoint.org" in origins
+    assert "http://localhost:5173" in origins
+

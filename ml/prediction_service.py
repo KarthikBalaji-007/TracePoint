@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 
 import joblib
@@ -13,8 +14,10 @@ from ml.live_risk import HORIZONS, calculate_live_risk
 from ml.live_risk_config import DEFAULT_LIVE_RISK_CONFIG
 from ml.prediction_config import DEFAULT_FUSION_CONFIG
 
-ARTIFACT_DIR = Path(__file__).resolve().parent / "artifacts"
-ZONE_CATALOGUE = Path(__file__).resolve().parent / "data" / "zones.json"
+DEFAULT_ARTIFACT_DIR = Path(__file__).resolve().parent / "artifacts"
+ARTIFACT_DIR = Path(os.environ.get("TRACEPOINT_ARTIFACT_DIR", str(DEFAULT_ARTIFACT_DIR)))
+DEFAULT_ZONE_CATALOGUE = Path(__file__).resolve().parent / "data" / "zones.json"
+ZONE_CATALOGUE = Path(os.environ.get("TRACEPOINT_ZONE_CATALOGUE", str(DEFAULT_ZONE_CATALOGUE)))
 HORIZON_HOURS = {"+2h": 2, "+6h": 6, "+24h": 24}
 SCORE_SEMANTICS = "RELATIVE_RISK_INDEX"
 
